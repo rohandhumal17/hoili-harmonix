@@ -3,12 +3,20 @@ import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import {
     AppBar, Box, CssBaseline, Divider, Drawer, IconButton, List, ListItem,
-    ListItemButton, ListItemText, Toolbar, Typography, Button
+    ListItemButton, ListItemText, Toolbar, Typography, Button, ListItemIcon
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import QrCode2Icon from '@mui/icons-material/QrCode2';
+import CameraAltIcon from '@mui/icons-material/CameraAlt';
 
 const drawerWidth = 240;
-const navItems = ['Dashboard', 'Generate Pass', 'Scan Pass'];
+
+const navItems = [
+    { name: 'Dashboard', icon: <DashboardIcon /> },
+    { name: 'Generate Pass', icon: <QrCode2Icon /> },
+    { name: 'Scan Pass', icon: <CameraAltIcon /> },
+];
 
 const AppbarComponent = (props) => {
     const { window } = props;
@@ -25,7 +33,7 @@ const AppbarComponent = (props) => {
         if (item === 'Generate Pass') {
             router.push('/generate-pass');
         } else if (item === 'Scan Pass') {
-            router.push('/scan-pass');
+            router.push('/qr-scanner');
         } else {
             router.push('/');
         }
@@ -36,13 +44,20 @@ const AppbarComponent = (props) => {
             <Typography variant="h6" sx={{ my: 2 }}>Holi Harmonix</Typography>
             <Divider />
             <List>
-                {navItems.map((item) => (
-                    <ListItem key={item} disablePadding>
+                {navItems.map(({ name, icon }) => (
+                    <ListItem key={name} disablePadding>
                         <ListItemButton
-                            sx={{ textAlign: 'center', backgroundColor: activeTab === item ? '#1976d2' : 'transparent', color: activeTab === item ? '#fff' : '#000' }}
-                            onClick={() => handleNavigation(item)}
+                            sx={{
+                                textAlign: 'center',
+                                backgroundColor: activeTab === name ? '#1976d2' : 'transparent',
+                                color: activeTab === name ? '#fff' : '#000',
+                            }}
+                            onClick={() => handleNavigation(name)}
                         >
-                            <ListItemText primary={item} />
+                            <ListItemIcon sx={{ color: activeTab === name ? '#fff' : '#000' }}>
+                                {icon}
+                            </ListItemIcon>
+                            <ListItemText primary={name} />
                         </ListItemButton>
                     </ListItem>
                 ))}
@@ -70,13 +85,14 @@ const AppbarComponent = (props) => {
                         Holi Harmonix
                     </Typography>
                     <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-                        {navItems.map((item) => (
+                        {navItems.map(({ name, icon }) => (
                             <Button
-                                key={item}
-                                sx={{ color: activeTab === item ? '#FFD700' : '#fff', fontWeight: activeTab === item ? 'bold' : 'normal' }}
-                                onClick={() => handleNavigation(item)}
+                                key={name}
+                                sx={{ color: activeTab === name ? '#FFD700' : '#fff', fontWeight: activeTab === name ? 'bold' : 'normal' }}
+                                onClick={() => handleNavigation(name)}
+                                startIcon={icon}
                             >
-                                {item}
+                                {name}
                             </Button>
                         ))}
                     </Box>

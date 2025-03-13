@@ -99,6 +99,7 @@ export default function Dashboard() {
             ) : error ? (
                 <Alert severity="error">{error}</Alert>
             ) : (
+                <Box sx={{ overflowX: "auto" }}>
                 <TableContainer component={Paper}>
                     <Table>
                         <TableHead>
@@ -114,8 +115,8 @@ export default function Dashboard() {
                         <TableBody>
                             {passes.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((pass, index) => (
                                 <TableRow key={index}>
-                                    <TableCell>{pass.name}</TableCell>
-                                    <TableCell>{pass.mobile}</TableCell>
+                                    <TableCell >{pass.name}</TableCell>
+                                    <TableCell >{pass.mobile}</TableCell>
                                     <TableCell>{pass.referenceName}</TableCell>
                                     <TableCell>{pass.qrValue}</TableCell>
                                     <TableCell>{new Date(pass.timestamp).toLocaleString()}</TableCell>
@@ -145,6 +146,7 @@ export default function Dashboard() {
                         }}
                     />
                 </TableContainer>
+                </Box>
             )}
 
             {/* Pass View Dialog */}
