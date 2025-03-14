@@ -90,9 +90,9 @@ export default function Dashboard() {
 
     return (
         <Container sx={{ padding: "20px" }}>
-            <Typography variant="h4" gutterBottom>
+            {/* <Typography variant="h4" gutterBottom>
                 Passes Dashboard
-            </Typography>
+            </Typography> */}
 
             {loading ? (
                 <CircularProgress />
